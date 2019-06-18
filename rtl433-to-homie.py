@@ -81,7 +81,7 @@ def mqtt_disconnect(client, userdata, rc):
     pass
 
 def get_device_id(data):
-    dev_id = "rtl433_" + str(data["protocol"])
+    dev_id = str(data["model"])
     if "channel" in data:
         dev_id += "_" + str(data["channel"])
     dev_id += "_" + str(data["id"])
@@ -141,8 +141,7 @@ def rtl_433_probe():
         try:
             data = json.loads(line)
 
-            dev_id = get_device_id(data)
-            dev_id = dev_id.replace("_", "-")
+            dev_id = get_device_id(data).replace("_", "-")
 
             base_topic = "homie/" + dev_id + "/"
 
