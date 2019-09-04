@@ -51,10 +51,10 @@ channel_maps = {
 boolean_map = {
     "0": "false",
     "1": "true",
-    "CLOSED": "false",
-    "OPEN": "true",
-    "No": "false",
-    "Yes": "true",
+    "closed": "false",
+    "open": "true",
+    "no": "false",
+    "yes": "true",
 }
 
 def send_message(mqttc, topic, value, retain=False):
@@ -158,7 +158,7 @@ def rtl_433_probe():
                 if key in channel_maps:
                     tup = channel_maps[key]
                     if tup[1] == "boolean":
-                        value = boolean_map[str(value)]
+                        value = boolean_map[str(value).lower()]
                     send_message(mqttc, sensor_topic + key.replace("_", "-"), value)
 
             send_message(mqttc, base_topic + "$state", "sleeping", True)
